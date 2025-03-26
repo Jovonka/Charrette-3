@@ -1,0 +1,33 @@
+/* General Styling */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    color: rgb(255, 255, 255);
+    overflow-x: hidden;
+}
+h1{
+    font-size: 70%;
+}
+/* WebGL Background - Fullscreen */
+#background-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1; /* Ensures it's behind content */
+}
+
+/* Content Container */
+.content {
+    position: relative;
+    z-index: 1;
+    padding: 50px;
+    text-align: center;
+}
+
+/* Long content for scrolling */
+.long-text {
+    height: 100vh; /* Extra height for scrolling */
+    padding-top: 20px;
+}

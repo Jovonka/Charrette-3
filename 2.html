@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading Page</title>
+    <style>
+        /* Style for the body */
+        body {
+            margin: 0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            background: #000000;
+        }
+
+        /* Bouncing Ball Loader */
+        .loader {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50px;
+            height: 50px;
+            background-color: #ffffff;
+            border-radius: 50%;
+            animation: bounce 1.5s ease-in-out infinite;
+        }
+
+        /* Keyframes for bouncing animation */
+        @keyframes bounce {
+            0% {
+                transform: translate(-50%, -50%) translateY(0);
+            }
+            50% {
+                transform: translate(-50%, -50%) translateY(-50px);
+            }
+            100% {
+                transform: translate(-50%, -50%) translateY(0);
+            }
+        }
+
+        /* Content visible after loading */
+        .content {
+            display: none;
+            padding: 20px;
+            text-align: center;
+            font-size: 24px;
+            color: #ffffff;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Loader (bouncing ball) -->
+    <div class="loader"></div>
+
+    <!-- Main content that will be shown after loading -->
+    <div class="content">
+        <p>This page has a loading animation everytime you refresh!</p>
+    </div>
+
+    <script>
+        // Function to hide the loader and show the content after page load with a delay
+        window.onload = function() {
+            // Set a delay before hiding the loader and showing the content
+            setTimeout(function() {
+                // Hide the loader
+                document.querySelector('.loader').style.display = 'none';
+                // Show the content
+                document.querySelector('.content').style.display = 'block';
+            }, 2000);  // 2000ms (2 seconds) delay
+        }
+    </script>
+
+</body>
+</html>
