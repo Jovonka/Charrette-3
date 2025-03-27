@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claw Machine</title>
+    <style>
+        body, html {
+            margin: 0;
+            height: 100%;
+            overflow: hidden;
+            background-color: #000;
+            font-family: Arial, sans-serif;
+            color: #fff;
+        }
+
+        .instruction {
+            position: absolute;
+            bottom: 15%;
+            right: 2%;
+            font-size: 1.2em;
+            z-index: 3;
+            text-align: right;
+        }
+
+        .content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 4;
+            text-align: center;
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 2s ease-in-out;
+        }
+
+        .content img {
+            width: 900px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .claw {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-color: rgb(255, 255, 255);
+            z-index: 2;
+            top: 50px;
+            transition: left 0.5s ease-in-out;
+        }
+
+        .target-cube {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            background-color: rgb(255, 234, 0);
+            z-index: 1;
+        }
+
+        .action-button {
+            position: absolute;
+            bottom: 5%;
+            right:2%;
+            padding: 40px;
+            background-color: #ff0000;
+            color: #fff;
+            border: none;
+            border-radius:300%;
+            font-size: 1.2em;
+            cursor: pointer;
+            z-index: 5;
+        }
+  /* Hamburger Icon */
+  .menu-icon {
+            font-size: 24px; /* Reduced size */
+            color: white;
+            cursor: pointer;
+            position: fixed;
+            top: 20px;
+            left: 15px; /* Adjusted position */
+            z-index: 9000;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            height: 100vh;
+            width: 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #33333380;
+            overflow-x: hidden;
+            transition: 0.3s;
+            padding-top: 40px; /* Adjusted padding */
+            z-index: 1000;
+        }
+
+        .sidebar a {
+            padding: 8px 16px; /* Reduced padding */
+            text-decoration: none;
+            font-size: 14px; /* Reduced font size */
+            color: white;
+            display: block;
+            transition: 0.3s;
+            z-index: 1000;
+        }
+
+        .sidebar a:hover {
+            background-color: #44444400;
+            z-index: 1000;
+        }
+
+        /* Content styling */
+        .content {
+            padding: 30px;
+            z-index: 1000;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Hamburger Icon -->
+    <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <a href="1.html">Page 1</a>
+        <a href="2.html">Page 2</a>
+        <a href="3.html">Page 3</a>
+        <a href="4.html">Page 4</a>
+        <a href="5.html">Page 5</a>
+        <a href="6.html">Page 6</a>
+        <a href="7.html">Page 7</a>
+        <a href="8.html">Page 8</a>
+        <a href="9.html">Page 9</a>
+        <a href="10.html">Page 10</a>
+        <a href="11.html">Page 11</a>
+        <a href="12.html">Page 12</a>
+        <a href="13.html">Page 13</a>
+        <a href="14.html">Page 14</a>
+        <a href="15.html">Page 15</a>
+        <a href="16.html">Page 16</a>
+        <a href="17.html">Page 17</a>
+        <a href="18.html">Page 18</a>
+        <a href="19.html">Page 19</a>
+        <a href="20.html">Page 20</a>
+    </div>
+
+<div class="instruction" id="instruction">
+    <p>Press the red button <br> to grab the yellow square!</p>
+</div>
+
+<div class="content" id="content">
+    <h1>Success!</h1>
+    
+    <img src="https://i.pinimg.com/originals/77/ff/54/77ff54276e951333b7c262f0dfb94930.gif" alt="Success Image">
+</div>
+
+<button class="action-button" id="grabButton"></button>
+<div class="claw" id="claw"></div>
+<div class="target-cube" id="targetCube"></div>
+
+<script>
+       function toggleMenu() {
+            const sidebar = document.getElementById("sidebar");
+            if (sidebar.style.width === "180px") { /* Smaller width */
+                sidebar.style.width = "0";
+            } else {
+                sidebar.style.width = "180px"; /* Smaller width */
+            }
+        }
+    let claw = document.getElementById('claw');
+    let targetCube = document.getElementById('targetCube');
+    let contentDiv = document.getElementById('content');
+    let instructionDiv = document.getElementById('instruction');
+    let grabButton = document.getElementById('grabButton');
+
+    let movingDirection = 1; 
+    let movingSpeed = 2; 
+    let clawHeight = 50; 
+    let clawYPosition = 50; 
+
+    let clawWidth = 50; 
+    let targetWidth = 50; 
+
+    function moveClaw() {
+        let currentLeft = parseInt(claw.style.left || 0);
+        let newLeft = currentLeft + movingSpeed * movingDirection;
+
+        if (newLeft > window.innerWidth - clawWidth || newLeft < 0) {
+            movingDirection *= -1; 
+        }
+
+        claw.style.left = newLeft + 'px';
+    }
+
+    function extendClaw() {
+        claw.style.transition = 'height 0.5s ease-out';
+        claw.style.height = '900px'; 
+
+        movingSpeed = 8; 
+
+        setTimeout(() => {
+            checkIfGrabbed();
+            resetClaw();
+        }, 500);
+    }
+
+    function checkIfGrabbed() {
+        let clawRect = claw.getBoundingClientRect();
+        let targetRect = targetCube.getBoundingClientRect();
+
+        if (clawRect.bottom >= targetRect.top && clawRect.left <= targetRect.right && clawRect.right >= targetRect.left) {
+            showContent();
+        }
+    }
+
+    function showContent() {
+        claw.style.display = 'none';
+        targetCube.style.display = 'none';
+        grabButton.style.display = 'none';
+        instructionDiv.style.display = 'none';
+
+        contentDiv.style.visibility = 'visible';
+        contentDiv.style.opacity = 1;
+    }
+
+    function resetClaw() {
+        claw.style.transition = 'height 0.5s ease-in-out';
+        claw.style.height = clawHeight + 'px'; 
+        movingSpeed = 2; 
+    }
+
+    function positionTargetCube() {
+        const windowWidth = window.innerWidth;
+        const windowHeight = window.innerHeight;
+
+        let randomX = Math.random() * (windowWidth - targetWidth);
+        let randomY = windowHeight * 0.5 + Math.random() * (windowHeight * 0.4);
+
+        targetCube.style.left = randomX + 'px';
+        targetCube.style.top = randomY + 'px';
+    }
+
+    grabButton.addEventListener('click', extendClaw);
+    setInterval(moveClaw, 60);
+    positionTargetCube();
+    claw.style.left = '0px';
+</script>
+
+</body>
+</html>

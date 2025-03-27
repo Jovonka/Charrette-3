@@ -1,4 +1,12 @@
 // Setup Three.js scene
+function toggleMenu() {
+    const sidebar = document.getElementById("sidebar");
+    if (sidebar.style.width === "180px") { /* Smaller width */
+        sidebar.style.width = "0";
+    } else {
+        sidebar.style.width = "180px"; /* Smaller width */
+    }
+}
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 const renderer = new THREE.WebGLRenderer({ antialias: true });

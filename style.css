@@ -31,3 +31,48 @@ h1{
     height: 100vh; /* Extra height for scrolling */
     padding-top: 20px;
 }
+  /* Hamburger Icon */
+  .menu-icon {
+    font-size: 24px; /* Reduced size */
+    color: white;
+    cursor: pointer;
+    position: fixed;
+    top: 20px;
+    left: 15px; /* Adjusted position */
+    z-index: 9000;
+}
+
+/* Sidebar */
+.sidebar {
+    height: 100vh;
+    width: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #33333380;
+    overflow-x: hidden;
+    transition: 0.3s;
+    padding-top: 40px; /* Adjusted padding */
+    z-index: 1000;
+}
+
+.sidebar a {
+    padding: 8px 16px; /* Reduced padding */
+    text-decoration: none;
+    font-size: 14px; /* Reduced font size */
+    color: white;
+    display: block;
+    transition: 0.3s;
+    z-index: 1000;
+}
+
+.sidebar a:hover {
+    background-color: #44444400;
+    z-index: 1000;
+}
+
+/* Content styling */
+.content {
+    padding: 30px;
+    z-index: 1000;
+}
