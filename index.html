@@ -6,13 +6,55 @@
     <title>WebGL Background</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background-color: gray; /* Set the background color to gray */
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+         /* Style for the sidebar */
+    .sidebar {
+        height: 100vh;
+        width: 0;
+        position: fixed;
+        top: 0;
+        left: 0;
+        background-color: #33333380;
+        overflow-x: hidden;
+        transition: 0.3s;
+        padding-top: 40px;
+        z-index: 1000;
+    }
+
+    /* Style for links in the sidebar */
+    .sidebar a {
+        padding: 8px 16px;
+        text-decoration: none;
+        font-size: 14px;
+        color: white;
+        display: block;
+        transition: 0.3s;
+        z-index: 1000;
+    }
+
+    .sidebar a:hover {
+        background-color: #44444400;
+    }
+
+    /* Highlight Page 1 with gray background */
+    .sidebar a[href="index.html"] {
+        background-color: gray;
+    }
+
+        /* You can keep your existing styles here */
+    </style>
 </head>
 <body>
 
     <!-- Hamburger Icon -->
     <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
 
-    
     <div class="sidebar" id="sidebar">
         <a href="index.html">Page 1</a>
         <a href="2.html">Page 2</a>
@@ -35,15 +77,13 @@
         <a href="19.html">Page 19</a>
         <a href="20.html">Page 20</a>
     </div>
+    
     <!-- Canvas for WebGL Background -->
     <div id="background-container"></div>
 
     <!-- Content Section -->
     <div class="content">
-        
-    
         <h1>Each time you load, a different background is randomly applied.</h1>
-
     </div>
 
     <script src="js/main.js"></script>

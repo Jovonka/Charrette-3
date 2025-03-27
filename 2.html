@@ -82,6 +82,11 @@
             transition: 0.3s;
             z-index: 1000;
         }
+        .active {
+            background-color: rgb(127, 127, 127);
+            color: black;
+        }
+      
 
         .sidebar a:hover {
             background-color: #44444400;
@@ -93,6 +98,39 @@
             padding: 30px;
             z-index: 1000;
         }
+        .sidebar {
+        height: 100vh;
+        width: 0;
+        position: fixed;
+        top: 0;
+        left: 0;
+        background-color: #33333380;
+        overflow-x: hidden;
+        transition: 0.3s;
+        padding-top: 40px;
+        z-index: 1000;
+    }
+
+    /* Style for links in the sidebar */
+    .sidebar a {
+        padding: 8px 16px;
+        text-decoration: none;
+        font-size: 14px;
+        color: white;
+        display: block;
+        transition: 0.3s;
+        z-index: 1000;
+    }
+
+    .sidebar a:hover {
+        background-color: #44444400;
+    }
+
+    /* Highlight Page 1 with gray background */
+    .sidebar a[href="2.html"] {
+        background-color: gray;
+    }
+
 
     </style>
 </head>
@@ -133,7 +171,7 @@
     </div>
 
     <script>
-           function toggleMenu() {
+        function toggleMenu() {
             const sidebar = document.getElementById("sidebar");
             if (sidebar.style.width === "180px") { /* Smaller width */
                 sidebar.style.width = "0";
@@ -141,6 +179,23 @@
                 sidebar.style.width = "180px"; /* Smaller width */
             }
         }
+
+        function highlightCurrentPage() {
+            const links = document.querySelectorAll('.sidebar a');
+            const currentPath = window.location.pathname.split('/').pop(); // Extract filename only from URL
+
+            links.forEach(link => {
+                const linkPath = link.getAttribute('href');
+
+                // Only compare the file name (e.g., "index.html" instead of full path)
+                if (currentPath === linkPath) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+        }
+
         // Function to hide the loader and show the content after page load with a delay
         window.onload = function() {
             // Set a delay before hiding the loader and showing the content
@@ -149,6 +204,9 @@
                 document.querySelector('.loader').style.display = 'none';
                 // Show the content
                 document.querySelector('.content').style.display = 'block';
+
+                // Highlight the current page in the sidebar
+                highlightCurrentPage();
             }, 2000);  // 2000ms (2 seconds) delay
         }
     </script>

@@ -1,12 +1,16 @@
-// Setup Three.js scene
 function toggleMenu() {
     const sidebar = document.getElementById("sidebar");
-    if (sidebar.style.width === "180px") { /* Smaller width */
+    const sidebarHighlight = document.querySelector(".sidebar-highlight");
+
+    if (sidebar.style.width === "180px") {
         sidebar.style.width = "0";
+        sidebarHighlight.style.visibility = "hidden"; // Hide the gray highlight
     } else {
-        sidebar.style.width = "180px"; /* Smaller width */
+        sidebar.style.width = "180px";
+        sidebarHighlight.style.visibility = "visible"; // Show the gray highlight
     }
 }
+
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 const renderer = new THREE.WebGLRenderer({ antialias: true });
